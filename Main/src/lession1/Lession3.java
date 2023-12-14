@@ -12,17 +12,26 @@ public class Lession3 {
 	public ArrayList<String> solution(int N, String[] str) {
 		ArrayList<String> answer = new ArrayList<>();
 		
-		String tmp = "";
 		for(String x : str) {
-			//한 글자씩 배열에 넣기
-			// d,o,g
-			String[] tmpArr = x.split("");
-			
-			// 뒤집어진 단어 만들어서 answer에 넣기
-			for(int i = 0; i < tmpArr.length; i++) {
-				tmp += tmpArr[tmpArr.length - 1 - i];
-				answer.add(tmp);
+			// d, o, g
+			char[] arr = x.toCharArray();
+			int left = 0;
+			int right = arr.length - 1;
+			 
+			while(left < right) {
+				// tmp = d
+				char tmp = arr[left];
+				//
+				arr[left] = arr[right];
+				arr[right] = tmp;
+				
+				left ++;
+				right --;
 			}
+			
+			//char들을 String화 시켜준다.
+			String tmp = String.valueOf(arr);  //valudOf() 는 static으로 선언된 메소드이므로 String.으로 사용한다.
+			answer.add(tmp);
 		}
 		
 		return answer;
@@ -33,12 +42,15 @@ public class Lession3 {
 		Lession3 T = new Lession3();
 		
 		int N = scanner.nextInt();
-		String[] str = {};
+		String[] str = new String[N];
+		
 		for(int i = 0; i < N; i++) {
-			String s = scanner.next();
-			str[i] = s;
+			str[i] = scanner.next();
 		}
-		System.out.println(T.solution(N, str));
+		
+		for(String x : T.solution(N, str))  {
+			System.out.println(x);
+		}
 		
 	}
 
